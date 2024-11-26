@@ -55,7 +55,10 @@ while (cap.isOpened()):
         y_big = int(results.multi_hand_landmarks[0].landmark[4].y *
                     flippedRGB.shape[0])
 
-        print(math.hypot(x_tip - x_big, y_tip - y_big) < 30)
+        if math.hypot(x_tip - x_big, y_tip - y_big) < 30:
+            cv2.circle(canvas, ((x_tip + x_big) // 2, (y_tip + y_big) // 2), 10, (255, 255, 255, 255), -1)
+        if math.hypot(x_big - x_avg, y_big - y_avg) < 30:
+            cv2.circle(canvas, ((x_big + x_avg) // 2, (y_big + y_avg) // 2), 10, (0, 0, 0, 0), -1)
 
         cv2.circle(flippedRGB, (x_tip, y_tip), 10, (255, 0, 0), -1)
         cv2.circle(flippedRGB, (x_avg, y_avg), 10, (0, 255, 0), -1)
