@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import mediapipe as mp
+import math
 
 handsDetector = mp.solutions.hands.Hands()
 
@@ -22,8 +23,9 @@ while(cap.isOpened()):
         y_avg = int(results.multi_hand_landmarks[0].landmark[12].y * flippedRGB.shape[0])
         x_big = int(results.multi_hand_landmarks[0].landmark[4].x * flippedRGB.shape[1])
         y_big = int(results.multi_hand_landmarks[0].landmark[4].y * flippedRGB.shape[0])
-        print(results.multi_hand_landmarks[0])
-        print(results.multi_hand_landmarks[0])
+
+        print(math.hypot(x_tip - x_big, y_tip - y_big) < 30)
+
         cv2.circle(flippedRGB,(x_tip, y_tip), 10, (255, 0, 0), -1)
         cv2.circle(flippedRGB,(x_avg, y_avg), 10, (0, 255, 0), -1)
         cv2.circle(flippedRGB,(x_big, y_big), 10, (0, 0, 255), -1)
