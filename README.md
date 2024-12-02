@@ -9,5 +9,5 @@ Pinch your index finger and big finget to draw at the collision point
 Pinch your middle finget and big finger to erase at the collision point
 
 
-https://github.com/user-attachments/assets/b51fea27-09af-46c9-bab1-1ffb39412347
+https://github.com/user-attachments/assets/e61001dd-bbd9-4f72-88cb-c25f7d8a5d5e
 
