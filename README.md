@@ -7,4 +7,7 @@ press q to exit
 ## How to draw
 Pinch your index finger and big finget to draw at the collision point
 Pinch your middle finget and big finger to erase at the collision point
-![demo](https://github.com/user-attachments/assets/3f83a2aa-cfd3-46c0-b3ab-181e7e69d46a)
+
+
+https://github.com/user-attachments/assets/b51fea27-09af-46c9-bab1-1ffb39412347
+
