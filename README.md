@@ -1,5 +1,7 @@
 # HandDraw
 draw using tips of your fingers.
+## Installation
+`pip install -r requirements.txt`
 ## Usage
 to run the program, run  
 `python3 main.py`  
