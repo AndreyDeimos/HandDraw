@@ -1,1 +1,3 @@
-cv2 mediapipe numpy
+cv2
+mediapipe
+numpy
