@@ -1,11 +1,8 @@
+from typing import clear_overloads
 import cv2
 import numpy as np
 import math
 import mediapipe as mp
-
-
-def recursion(a):
-    recursion(a)
 
 
 def overlay_image(background, overlay):
@@ -24,13 +21,25 @@ def overlay_image(background, overlay):
     return background
 
 
-handsDetector = mp.solutions.hands.Hands()
+def clear(*args):
+    global canvas
+    canvas = np.zeros((frame.shape[0], frame.shape[1], 4))
+
+
+handsDetector = mp.solutions.hands.Hands(
+    min_detection_confidence=0.7, min_tracking_confidence=0.7
+)
 
 cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+cap.set(cv2.CAP_PROP_FPS, 30)
 
 ret, frame = cap.read()
 
 canvas = np.zeros((frame.shape[0], frame.shape[1], 4))
+
+cv2.namedWindow("Hands")
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -54,15 +63,20 @@ while cap.isOpened():
         x_big = int(results.multi_hand_landmarks[0].landmark[4].x * flippedRGB.shape[1])
         y_big = int(results.multi_hand_landmarks[0].landmark[4].y * flippedRGB.shape[0])
 
-        if math.hypot(x_tip - x_big, y_tip - y_big) < 30:
+        if (
+            math.hypot(x_tip - x_big, y_tip - y_big) < 30
+            and math.hypot(x_big - x_avg, y_big - y_avg) < 30
+        ):
+            clear()
+        elif math.hypot(x_tip - x_big, y_tip - y_big) < 30:
             cv2.circle(
                 canvas,
                 ((x_tip + x_big) // 2, (y_tip + y_big) // 2),
                 10,
-                (255, 255, 255, 255),
+                (255, 255, 0, 255),
                 -1,
             )
-        if math.hypot(x_big - x_avg, y_big - y_avg) < 30:
+        elif math.hypot(x_big - x_avg, y_big - y_avg) < 30:
             cv2.circle(
                 canvas,
                 ((x_big + x_avg) // 2, (y_big + y_avg) // 2),
@@ -79,3 +93,6 @@ while cap.isOpened():
     res = overlay_image(res_image, canvas)
 
     cv2.imshow("Hands", res)
+
+cap.release()
+cv2.destroyAllWindows()
